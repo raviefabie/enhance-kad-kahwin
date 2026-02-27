@@ -31,6 +31,69 @@
     overflow-x: hidden;
   }
 
+  /* ── DESKTOP RESPONSIVE WRAPPER ── */
+  @media (min-width: 600px) {
+    body {
+      background: #d6c9b8;
+      padding: 3rem 0;
+      min-height: 100vh;
+    }
+    #loading-screen,
+    #entrance {
+      align-items: center;
+    }
+    #loading-screen > *,
+    .entrance-content {
+      position: relative;
+      z-index: 2;
+    }
+    #app-card {
+      max-width: 520px;
+      margin: 0 auto;
+      background: var(--cream);
+      box-shadow: 0 8px 60px rgba(0,0,0,0.18);
+      position: relative;
+      overflow-x: hidden;
+    }
+    #loading-screen {
+      background: #d6c9b8;
+    }
+    #entrance {
+      justify-content: center;
+      align-items: center;
+    }
+    .entrance-inner {
+      background: var(--cream);
+      width: 100%;
+      max-width: 520px;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .entrance-inner .plant-corner {
+      display: none;
+    }
+    #entrance > .plant-corner {
+      display: block;
+    }
+    #music-bar {
+      right: max(1.2rem, calc(50% - 260px + 1.2rem));
+    }
+    #lang-toggle {
+      left: max(1.2rem, calc(50% - 260px + 1.2rem));
+    }
+    .plant-corner.tr,
+    .plant-corner.bl {
+      width: clamp(160px, 30vw, 220px);
+    }
+    section [style*="width:clamp(200px,40vw"] {
+      width: clamp(160px, 30vw, 220px) !important;
+    }
+  }
+
   /* ── PLANT SVG CORNERS ── */
   .plant-corner {
     position: absolute;
@@ -188,7 +251,7 @@
 
   .entrance-content {
     text-align: center;
-    padding: 2rem;
+    padding: 2rem 2rem 8rem;
     animation: fadeUp 1.2s ease both;
     z-index: 3;
     position: relative;
@@ -599,35 +662,55 @@
   .contact-entry {
     padding: 0.8rem 1.5rem;
     flex: 1;
-    min-width: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
   }
   .contact-entry + .contact-entry {
     border-image: linear-gradient(to bottom, transparent, rgba(201,168,76,0.5), transparent) 1;
     border-left: 1px solid;
     border-top: none;
   }
-  /* contact-num now shows the NAME/ROLE — Cormorant, larger */
   .contact-num {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(0.95rem, 3vw, 1.15rem);
+    font-size: clamp(0.95rem, 3vw, 1.05rem);
     color: var(--text);
     font-weight: 600;
     letter-spacing: 0.02em;
-    margin-bottom: 0.35rem;
+    text-align: center;
+    line-height: 1.4;
   }
-  .contact-num a { color: inherit; text-decoration: none; }
-  .contact-num a:hover { color: var(--crimson); }
-  /* contact-role now shows the PHONE — Cinzel, crimson */
-  .contact-role {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(0.8rem, 2.5vw, 0.95rem);
-    letter-spacing: 0.05em;
-    color: var(--crimson);
-    font-weight: 600;
-    white-space: nowrap;
+  .contact-icon-row {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.2rem;
   }
-  .contact-role a { color: inherit; text-decoration: none; }
-  .contact-role a:hover { opacity: 0.75; }
+  .contact-icon-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    flex-shrink: 0;
+  }
+  .contact-icon-btn:hover { transform: scale(1.12); }
+  .contact-icon-btn.call {
+    background: var(--crimson);
+    box-shadow: 0 2px 8px rgba(122,21,53,0.25);
+  }
+  .contact-icon-btn.wa {
+    background: #25D366;
+    box-shadow: 0 2px 8px rgba(37,211,102,0.25);
+  }
+  .contact-icon-btn svg {
+    width: 16px;
+    height: 16px;
+    fill: white;
+  }
 
   /* FOOTER — inline inside contact section */
   .footer-inline {
@@ -770,12 +853,12 @@
   }
 
   .gb-empty {
-    font-family: 'Cormorant Garamond', serif;
-    color: var(--text);
-    font-size: clamp(0.85rem, 2.5vw, 1rem);
-    padding: 1.5rem;
-    text-align: center;
-    width: 100%;
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--text);
+  font-size: 0.95rem;
+  padding: 1.5rem;
+  text-align: center;
+  width: 100%;
   }
 
   /* Form */
@@ -1040,7 +1123,7 @@
      ENTRANCE SCREEN
 ═══════════════════════════════════ -->
 <div id="entrance">
-  <!-- Plant corners on entrance -->
+  <!-- Plant corners: direct children of #entrance so they sit at viewport edges on desktop -->
   <div class="plant-corner tr" style="position:absolute;top:-35px;right:-35px;width:clamp(200px,40vw,320px);pointer-events:none;z-index:1;">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 397.332 500">
   <defs>
@@ -1264,6 +1347,7 @@
 </svg>
   </div>
 
+  <div class="entrance-inner">
   <div class="entrance-content">
     <p class="entrance-label">Walimatul Urus</p>
     <div class="entrance-names">
@@ -1274,6 +1358,7 @@
     <p class="entrance-date">Sabtu · 30 Mei 2026</p>
     <button class="btn-open" onclick="enterPage()">Buka Jemputan ✦</button>
   </div>
+  </div><!-- end entrance-inner -->
 </div>
 
 <!-- ══════════════════════════════════
@@ -1299,6 +1384,9 @@
   <button class="lang-btn active" id="btn-bm" onclick="setLang('bm')">BM</button>
   <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
 </div>
+
+  <!-- CARD WRAPPER (centres content on desktop) -->
+  <div id="app-card">
 
   <!-- HERO -->
   <section id="hero">
@@ -2323,11 +2411,25 @@
       <div class="contact-list">
         <div class="contact-entry reveal">
           <p class="contact-num">Kakak Pengantin Lelaki</p>
-          <p class="contact-role"><a href="tel:+60135798094">+60 13-579 8094</a></p>
+          <div class="contact-icon-row">
+            <a class="contact-icon-btn call" href="tel:+60135798094" title="Call +60 13-579 8094">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            </a>
+            <a class="contact-icon-btn wa" href="https://wa.me/60135798094" target="_blank" title="WhatsApp +60 13-579 8094">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            </a>
+          </div>
         </div>
         <div class="contact-entry reveal">
           <p class="contact-num">Abang Pengantin Lelaki</p>
-          <p class="contact-role"><a href="tel:+60137578219">+60 13-757 8219</a></p>
+          <div class="contact-icon-row">
+            <a class="contact-icon-btn call" href="tel:+60137578219" title="Call +60 13-757 8219">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            </a>
+            <a class="contact-icon-btn wa" href="https://wa.me/60137578219" target="_blank" title="WhatsApp +60 13-757 8219">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            </a>
+          </div>
         </div>
       </div>
 
@@ -2362,14 +2464,15 @@
       </div>
     </div>
 
+  </div><!-- end #app-card -->
 
-</div>
+</div><!-- end #main-page -->
 
 <script>
 // QR Canvas recolour
 function recolourQR(imgEl, canvasEl) {
   const bgR=232, bgG=221, bgB=208;
-  const ctx = canvasEl.getContext('2d', { willReadFrequently: true });
+  const ctx = canvasEl.getContext('2d');
   canvasEl.width = 90; canvasEl.height = 90;
   ctx.drawImage(imgEl, 0, 0, 90, 90);
   const d = ctx.getImageData(0,0,90,90);
@@ -2506,7 +2609,7 @@ document.addEventListener('DOMContentLoaded', initQRCanvases);
     clearInterval(sliderTimer);
 
     if (messages.length === 0) {
-      track.innerHTML = `<div class="gb-empty">${TRANSLATIONS[currentLang]['gb-empty']}</div>`;
+      track.innerHTML = '<div class="gb-empty">Jadilah yang pertama meninggalkan ucapan! 🌸</div>';
       dots.innerHTML = '';
       return;
     }
